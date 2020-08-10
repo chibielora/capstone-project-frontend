@@ -8,6 +8,10 @@ import SignUp from '../SignUp/SignUp'
 import SignIn from '../SignIn/SignIn'
 import SignOut from '../SignOut/SignOut'
 import ChangePassword from '../ChangePassword/ChangePassword'
+import Home from '../Home/Home'
+import Profile from '../Profile/Profile'
+import Search from '../Search/Search'
+import NotFound from '../NotFound'
 
 class App extends Component {
   constructor () {

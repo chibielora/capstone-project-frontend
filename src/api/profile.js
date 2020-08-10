@@ -8,7 +8,7 @@ import {
   UNFOLLOW
 } from './../index'
 import apiUrl from '../apiConfig'
-
+import messages from '../components/AutoDismissAlert/messages'
 
 export const getUserProfile = (userId) => dispatch => {
   dispatch(loadProfile())
@@ -19,15 +19,15 @@ export const getUserProfile = (userId) => dispatch => {
       'Authorization': `Bearer ${this.props.user.token}`
     }
   })
-  .then(res => dispatch({
-    type: GET_PROFILE,
-    payload: res.data
-  }))
-  .catch(() => this.props.msgAlert({
-    heading: 'Failed to get user profile',
-    message: messages.userFailure, // CHange this message
-    variant: 'danger'
-  }))
+    .then(res => dispatch({
+      type: GET_PROFILE,
+      payload: res.data
+    }))
+    .catch(() => this.props.msgAlert({
+      heading: 'Failed to get user profile',
+      message: messages.userFailure, // CHange this message
+      variant: 'danger'
+    }))
 }
 
 export const refreshUserProfile = (userId) => dispatch => {
@@ -38,15 +38,15 @@ export const refreshUserProfile = (userId) => dispatch => {
       'Authorization': `Bearer ${this.props.user.token}`
     }
   })
-  .then(res => dispatch({
-    type: GET_PROFILE,
-    payload: res.data
-  }))
-  .catch(() => this.props.msgAlert({
-    heading: 'Failed to refresh user profile',
-    message: messages.userFailure, // CHange this message
-    variant: 'danger'
-  }))
+    .then(res => dispatch({
+      type: GET_PROFILE,
+      payload: res.data
+    }))
+    .catch(() => this.props.msgAlert({
+      heading: 'Failed to refresh user profile',
+      message: messages.userFailure, // CHange this message
+      variant: 'danger'
+    }))
 }
 
 export const getPostsByUserId = (userId) => dispatch => {
@@ -58,15 +58,15 @@ export const getPostsByUserId = (userId) => dispatch => {
       'Authorization': `Bearer ${this.props.user.token}`
     }
   })
-  .then(res => dispatch({
-    type: GET_POSTS,
-    payload: res.data
-  }))
-  .catch(() => this.props.msgAlert({
-    heading: 'Failed to get post by user id',
-    message: messages.userFailure, // CHange this message
-    variant: 'danger'
-  }))
+    .then(res => dispatch({
+      type: GET_POSTS,
+      payload: res.data
+    }))
+    .catch(() => this.props.msgAlert({
+      heading: 'Failed to get post by user id',
+      message: messages.userFailure, // CHange this message
+      variant: 'danger'
+    }))
 }
 
 export const followUser = (userId) => dispatch => {
@@ -77,15 +77,15 @@ export const followUser = (userId) => dispatch => {
       'Authorization': `Bearer ${this.props.user.token}`
     }
   })
-  .then(res => dispatch({
-    type: FOLLOW,
-    payload: res.data.userId
-  }))
-  .catch(() => this.props.msgAlert({
-    heading: 'Failed to follow user',
-    message: messages.userFailure, // CHange this message
-    variant: 'danger'
-  }))
+    .then(res => dispatch({
+      type: FOLLOW,
+      payload: res.data.userId
+    }))
+    .catch(() => this.props.msgAlert({
+      heading: 'Failed to follow user',
+      message: messages.userFailure, // CHange this message
+      variant: 'danger'
+    }))
 }
 
 export const unfollowUser = (userId) => dispatch => {
@@ -96,15 +96,15 @@ export const unfollowUser = (userId) => dispatch => {
       'Authorization': `Bearer ${this.props.user.token}`
     }
   })
-  .then(res => dispatch({
-    type: UNFOLLOW,
-    payload: res.data.userId
-  }))
-  .catch(() => this.props.msgAlert({
-    heading: 'Failed to unfollow user',
-    message: messages.userFailure, // CHange this message
-    variant: 'danger'
-  }))
+    .then(res => dispatch({
+      type: UNFOLLOW,
+      payload: res.data.userId
+    }))
+    .catch(() => this.props.msgAlert({
+      heading: 'Failed to unfollow user',
+      message: messages.userFailure, // CHange this message
+      variant: 'danger'
+    }))
 }
 
 export const searchUser = (searchData, history) => dispatch => {
@@ -118,7 +118,7 @@ export const searchUser = (searchData, history) => dispatch => {
     .then(res => {
       history.push(`/profile/${res.data.userId}`)
     })
-    .catch(err => history.push('/search'))
+    .catch(next => history.push('/search')) // Handle error
 }
 
 export const loadProfile = () => {
