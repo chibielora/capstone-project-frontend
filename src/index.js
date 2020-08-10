@@ -11,4 +11,16 @@ const appJsx = (
   </HashRouter>
 )
 
+export const GET_ERRORS = 'GET_ERRORS'
+export const SET_CURRENT_USER = 'SET_CURRENT_USER'
+export const LOADING_POSTS = 'LOADING_POSTS'
+export const GET_POSTS = 'GET_POSTS'
+export const ADD_POST = 'ADD_POST'
+export const DELETE_POSTS = 'DELETE_POSTS'
+export const EDIT_POSTS = 'EDIT_POSTS'
+export const LOAD_PROFILE = 'LOAD_PROFILE'
+export const GET_PROFILE = 'GET_PROFILE'
+export const FOLLOW = 'FOLLOW'
+export const UNFOLLOW = 'UNFOLLOW'
+
 ReactDOM.render(appJsx, document.getElementById('root'))
