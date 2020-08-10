@@ -11,8 +11,8 @@ import { Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
 
-import { logoutUser } from '../../actions/authActions'
-import SearchForm from '../Search/SearchForm'
+import { signOutUser } from '../SignOut/SignOut'
+import Search from '../Search/Search'
 
 const styles = {
   root: {
@@ -34,16 +34,16 @@ class Header extends Component {
     this.state = {
       anchorEl: null
     }
-    this.handleLogout = this.handleLogout.bind(this)
+    this.handlesignOut = this.handlesignOut.bind(this)
   }
 
 handleMenu = (event) => { this.setState({ anchorEl: event.currentTarget }) }
 
 handleClose = () => { this.setState({ anchorEl: null }) }
 
-handleLogout () {
+handlesignOut () {
   this.setState({ anchorEl: null })
-  this.props.logoutUser()
+  this.props.signOutUser()
 }
 render () {
   const { classes, isAuthenticated, user } = this.props
@@ -75,10 +75,10 @@ render () {
         onClose={this.handleClose}
       >
         <MenuItem onClick={this.handleClose}>
-          <Link to="/login">Login</Link>
+          <Link to="/login">Log-in</Link>
         </MenuItem>
         <MenuItem onClick={this.handleClose}>
-          <Link to="/register">Register</Link>
+          <Link to="/sign-up">Sign Up!</Link>
         </MenuItem>
       </Menu>
     </div>
@@ -112,7 +112,7 @@ render () {
           <Link to={`/profile/${user._id}`}>Profile</Link>
         </MenuItem>
         <MenuItem >
-          <Link to="/#" onClick={this.handleLogout}>Logout</Link>
+          <Link to="/#" onClick={this.handlesignOut}>signOut</Link>
         </MenuItem>
       </Menu>
     </div>
@@ -121,8 +121,8 @@ render () {
     <div className={classes.root}>
       <AppBar position="static" style={{ backgroundColor: '#4B0082' }}>
         <Toolbar className={classes.space}>
-          <Link to="/" className={classes.logo}>Twit</Link>
-          <SearchForm />
+          <Link to="/" className={classes.logo}>Titter</Link>
+          <Search />
           { isAuthenticated ? authLinks : guestLinks }
         </Toolbar>
       </AppBar>
@@ -136,4 +136,4 @@ const mapStateToProps = (state) => ({
   user: state.auth.user
 })
 
-export default connect(mapStateToProps, { logoutUser })(withStyles(styles)(Header))
+export default connect(mapStateToProps, { signOutUser })(withStyles(styles)(Header))
