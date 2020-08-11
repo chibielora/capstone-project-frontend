@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
 import { signIn } from '../../api/auth'
@@ -8,7 +9,6 @@ import messages from '../AutoDismissAlert/messages'
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import { connect } from 'react-redux'
 
 class SignIn extends Component {
   constructor () {

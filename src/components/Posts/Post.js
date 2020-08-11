@@ -31,15 +31,15 @@ class Post extends Component {
         <div
           className={classes.avatar}
           style={{
-            backgroundColor: `#${post.user.id.slice(post.user.id.length - 3)}`
+            backgroundColor: `#${post.user._id.slice(post.user._id.length - 3)}`
           }}
         />
         <div>
           <h3 className={classes.login}>
-            <Link to={`/profile/${post.user.id}`}>{post.user.login}</Link>
+            <Link to={`/profile/${post.user._id}`}>{post.user.username}</Link>
             <span className={classes.time}>{(new Date(post.createdAt)).toLocaleString()}</span>
           </h3>
-          {post.text}
+          {post.body}
         </div>
       </Paper>
     )

@@ -10,7 +10,7 @@ const styles = {
 
 const Footer = ({ classes }) => (
   <div className={classes.root}>
-    This is a project for General Assembly.
+    Capstone project for General Assembly.
   </div>
 )
 

@@ -24,14 +24,14 @@ class ListPost extends Component {
   }
 
   componentDidMount () {
-    this.props.getPosts()
+    getPosts()
   }
 
   componentDidUpdate (prevProps, prevState) {
     if (prevState.allPosts !== this.state.allPosts) {
       this.state.allPosts
-        ? this.props.getPosts()
-        : this.props.getPostsByFollowingUsers()
+        ? getPosts()
+        : getPostsByFollowingUsers()
     }
   }
 
@@ -59,4 +59,4 @@ const mapStateToProps = (state) => ({
   loading: state.post.loading
 })
 
-export default connect(mapStateToProps, { getPosts, getPostsByFollowingUsers })(ListPost)
+export default connect(mapStateToProps)(ListPost)

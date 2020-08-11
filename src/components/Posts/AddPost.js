@@ -3,7 +3,6 @@ import Paper from '@material-ui/core/Paper'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { withStyles } from '@material-ui/core/styles'
-import { connect } from 'react-redux'
 import { addPost } from '../../api/post'
 
 const styles = {
@@ -29,7 +28,7 @@ class AddPost extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      text: ''
+      message: ''
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -37,18 +36,16 @@ class AddPost extends Component {
   }
 
   handleChange (e) {
-    this.setState({ text: e.target.value })
+    this.setState({ message: e.target.value })
   }
 
   handleSubmit (e) {
     e.preventDefault()
 
-    const postData = {
-      text: this.state.text
-    }
-
-    this.props.addPost(postData)
-    this.setState({ text: '' })
+    addPost({
+      message: this.state.message
+    })
+    this.setState({ message: '' })
   }
 
   render () {
@@ -58,7 +55,7 @@ class AddPost extends Component {
         <TextField
           multiline
           rowsMax="4"
-          label="What's is new?"
+          label="What's up, Doc?"
           className={classes.textField}
           onChange={this.handleChange}
           value={this.state.text}
@@ -75,4 +72,4 @@ class AddPost extends Component {
   }
 }
 
-export default connect(null, { addPost })(withStyles(styles)(AddPost))
+export default withStyles(styles)(AddPost)
