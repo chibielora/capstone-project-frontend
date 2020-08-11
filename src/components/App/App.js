@@ -1,8 +1,10 @@
-import React, { Component, Fragment } from 'react'
-import { Route } from 'react-router-dom'
-
+import React, { Component } from 'react'
+import { Route, BrowserRouter, Switch } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import Main from './components/Layout/Main'
 import AuthenticatedRoute from '../AuthenticatedRoute/AuthenticatedRoute'
 import AutoDismissAlert from '../AutoDismissAlert/AutoDismissAlert'
+import store from '../store'
 import Header from '../Header/Header'
 import SignUp from '../SignUp/SignUp'
 import SignIn from '../SignIn/SignIn'
@@ -10,8 +12,8 @@ import SignOut from '../SignOut/SignOut'
 import ChangePassword from '../ChangePassword/ChangePassword'
 import Home from '../Home/Home'
 import Profile from '../Profile/Profile'
-import Search from '../Search/Search'
-import NotFound from '../NotFound'
+import Search from '../Search/NotFound'
+import NotFound from '../NotFound/NotFound'
 
 class App extends Component {
   constructor () {
@@ -35,35 +37,43 @@ class App extends Component {
     const { msgAlerts, user } = this.state
 
     return (
-      <Fragment>
-        <Header user={user} />
-        {msgAlerts.map((msgAlert, index) => (
-          <AutoDismissAlert
-            key={index}
-            heading={msgAlert.heading}
-            variant={msgAlert.variant}
-            message={msgAlert.message}
-          />
-        ))}
-        <main className="container">
-          <Route path='/sign-up' render={() => (
-            <SignUp msgAlert={this.msgAlert} setUser={this.setUser} />
-          )} />
-          <Route path='/sign-in' render={() => (
-            <SignIn msgAlert={this.msgAlert} setUser={this.setUser} />
-          )} />
-          <AuthenticatedRoute user={user} path='/sign-out' render={() => (
-            <SignOut msgAlert={this.msgAlert} clearUser={this.clearUser} user={user} />
-          )} />
-          <AuthenticatedRoute user={user} path='/change-password' render={() => (
-            <ChangePassword msgAlert={this.msgAlert} user={user} />
-          )} />
-          <Route exact path="/" component={Home} />
-          <Route path="/profile/:userId" component={Profile} />
-          <Route path="/search" component={Search} />
-          <Route component={NotFound}/>
-        </main>
-      </Fragment>
+      <Provider store={store}>
+        <div>
+          <BrowserRouter>
+            <Main>
+              <Switch>
+                <Header user={user} />
+                {msgAlerts.map((msgAlert, index) => (
+                  <AutoDismissAlert
+                    key={index}
+                    heading={msgAlert.heading}
+                    variant={msgAlert.variant}
+                    message={msgAlert.message}
+                  />
+                ))}
+                <main className="container">
+                  <Route path='/sign-up' render={() => (
+                    <SignUp msgAlert={this.msgAlert} setUser={this.setUser} />
+                  )} />
+                  <Route path='/sign-in' render={() => (
+                    <SignIn msgAlert={this.msgAlert} setUser={this.setUser} />
+                  )} />
+                  <AuthenticatedRoute user={user} path='/sign-out' render={() => (
+                    <SignOut msgAlert={this.msgAlert} clearUser={this.clearUser} user={user} />
+                  )} />
+                  <AuthenticatedRoute user={user} path='/change-password' render={() => (
+                    <ChangePassword msgAlert={this.msgAlert} user={user} />
+                  )} />
+                  <Route exact path="/" component={Home} />
+                  <Route path="/profile/:userId" component={Profile} />
+                  <Route path="/search" component={Search} />
+                  <Route component={NotFound}/>
+                </main>
+              </Switch>
+            </Main>
+          </BrowserRouter>
+        </div>
+      </Provider>
     )
   }
 }
