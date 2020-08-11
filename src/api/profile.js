@@ -1,52 +1,35 @@
 import axios from 'axios'
-import {
-  GET_PROFILE,
-  LOAD_PROFILE,
-  GET_POSTS,
-  LOADING_POSTS,
-  FOLLOW,
-  UNFOLLOW
-} from '../constants'
 import apiUrl from '../apiConfig'
 import messages from '../components/AutoDismissAlert/messages'
+import store from '../store'
+import * as ProfileActions from '../actions/profileActions'
+import { addMessage } from '../actions/messageActions'
 
-export const getUserProfile = (userId) => dispatch => {
-  dispatch(loadProfile())
+export const getUserProfile = (userId) => {
+  store.dispatch(ProfileActions.loadingPosts())
   axios({
     method: 'GET',
-    url: apiUrl + `/users/${userId}`,
-    headers: {
-      'Authorization': `Bearer ${this.props.user.token}`
-    }
+    url: apiUrl + `/users/${userId}`
   })
-    .then(res => dispatch({
-      type: GET_PROFILE,
-      payload: res.data
-    }))
-    .catch(() => this.props.msgAlert({
-      heading: 'Failed to get user profile',
+    .then(res => store.dispatch(ProfileActions.getUser(res.data.user)))
+    .catch(() => store.dispatch(addMessage({
+      heading: 'Failed to get user',
       message: messages.userFailure, // CHange this message
       variant: 'danger'
-    }))
+    })))
 }
 
-export const refreshUserProfile = (userId) => dispatch => {
+export const refreshUserProfile = (userId) => {
   axios({
     method: 'GET',
-    url: apiUrl + `/users/${userId}`,
-    headers: {
-      'Authorization': `Bearer ${this.props.user.token}`
-    }
+    url: apiUrl + `/users/${userId}`
   })
-    .then(res => dispatch({
-      type: GET_PROFILE,
-      payload: res.data
-    }))
-    .catch(() => this.props.msgAlert({
+    .then(res => store.dispatch(ProfileActions.getUser(res.data.user)))
+    .catch(() => store.dispatch(addMessage({
       heading: 'Failed to refresh user profile',
       message: messages.userFailure, // CHange this message
       variant: 'danger'
-    }))
+    })))
 }
 
 export const getPostsByUserId = (userId) => dispatch => {
