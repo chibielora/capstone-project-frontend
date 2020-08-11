@@ -5,10 +5,11 @@ import {
 
 const initialState = {
   loading: false,
-  user: []
+  user: null
 }
 
 export default function (state = initialState, action) {
+  console.log(action)
   switch (action.type) {
   case LOAD_PROFILE:
     return {

@@ -4,9 +4,11 @@ import messages from '../components/AutoDismissAlert/messages'
 import store from '../store'
 import * as ProfileActions from '../actions/profileActions'
 import { addMessage } from '../actions/messageActions'
+import { getPosts } from '../actions/postActions'
 // import { LOAD_PROFILE, LOADING_POSTS } from '../constants'
 
 export const getUserProfile = (userId) => {
+  console.log('getUserProfile')
   store.dispatch(ProfileActions.loadingProfile())
   axios({
     method: 'GET',
@@ -37,11 +39,14 @@ export const getPostsByUserId = (userId) => {
   store.dispatch(ProfileActions.loadingPosts())
   axios({
     method: 'GET',
-    url: apiUrl + `posts/${userId}`
+    url: apiUrl + `/users/${userId}/posts`
   })
-    .then(res => store.dispatch(ProfileActions.getUserProfile(res.data.user)))
+    .then(res => {
+      console.log(res.data)
+      store.dispatch(getPosts(res.data.posts))
+    })
     .catch(() => store.dispatch(addMessage({
-      heading: 'Failed to get post by user id',
+      heading: 'Failed to get posts by user id',
       message: messages.userFailure,
       variant: 'danger'
     })))
@@ -50,7 +55,7 @@ export const getPostsByUserId = (userId) => {
 export const followUser = (userId) => {
   axios({
     method: 'POST',
-    url: apiUrl + 'users/follow' + userId
+    url: apiUrl + '/users/follow' + userId
   })
     .then(res => store.dispatch(ProfileActions.followUser(userId))) // userId or res.data.user?
     .catch(() => store.dispatch(addMessage({

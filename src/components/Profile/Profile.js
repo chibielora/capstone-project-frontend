@@ -62,24 +62,24 @@ class Profile extends Component {
   }
 
   componentDidMount () {
-    this.props.getPostsByUserId(this.props.match.params.userId)
-    this.props.getUserProfile(this.props.match.params.userId)
+    getPostsByUserId(this.props.match.params.userId)
+    getUserProfile(this.props.match.params.userId)
   }
 
   componentDidUpdate (prevProps) {
     if (this.props.auth.isAuthenticated) {
       if (prevProps.user && prevProps.user.following !== this.props.user.following) {
-        this.props.refreshUserProfile(this.props.match.params.userId)
+        refreshUserProfile(this.props.match.params.userId)
       }
     }
   }
 
   handleFollow () {
-    this.props.followUser(this.props.match.params.userId)
+    followUser(this.props.match.params.userId)
   }
 
   handleUnfollow () {
-    this.props.unfollowUser(this.props.match.params.userId)
+    unfollowUser(this.props.match.params.userId)
   }
 
   render () {
@@ -163,12 +163,4 @@ const mapStateToProps = (state) => ({
   user: state.auth.user
 })
 
-export default connect(mapStateToProps,
-  {
-    getUserProfile,
-    refreshUserProfile,
-    getPostsByUserId,
-    followUser,
-    unfollowUser
-
-  })(withStyles(styles)(Profile))
+export default connect(mapStateToProps)(withStyles(styles)(Profile))

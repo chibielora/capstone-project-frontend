@@ -36,18 +36,22 @@ class ListPost extends Component {
   }
 
   render () {
-    const { list, loading } = this.props
+    const { auth, list, loading } = this.props
     const { allPosts } = this.state
     const items = list && list.map(el => <Post key={el._id} post={el} />)
     return (
       <div>
-        <AddPost />
-        <FormControlLabel
-          control={
-            <Switch checked={allPosts} onChange={this.handleChange} />
-          }
-          label={allPosts ? 'All posts' : 'From following users'}
-        />
+        {auth.isAuthenticated && (
+          <div>
+            <AddPost />
+            <FormControlLabel
+              control={
+                <Switch checked={allPosts} onChange={this.handleChange} />
+              }
+              label={allPosts ? 'All posts' : 'From following users'}
+            />
+          </div>
+        )}
         { loading ? <LoadingPosts /> : items}
       </div>
     )
@@ -55,6 +59,7 @@ class ListPost extends Component {
 }
 
 const mapStateToProps = (state) => ({
+  auth: state.auth,
   list: state.post.list,
   loading: state.post.loading
 })

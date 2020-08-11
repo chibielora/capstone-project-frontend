@@ -55,10 +55,13 @@ class AddPost extends Component {
         <TextField
           multiline
           rowsMax="4"
-          label="What's up, Doc?"
+          inputProps={{
+            maxLength: 300
+          }}
+          label="What's on your mind?"
           className={classes.textField}
           onChange={this.handleChange}
-          value={this.state.text}
+          value={this.state.message}
         />
         <Button
           variant="outlined"
