@@ -17,7 +17,7 @@ export const refreshUserProfile = (user) => ({
   payload: user
 })
 
-export const loadProfile = () => ({
+export const loadingProfile = () => ({
   type: LOAD_PROFILE
 })
 

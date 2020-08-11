@@ -124,7 +124,7 @@ class Profile extends Component {
     if (profile && items) {
       profileInfo = (
         <Paper className={classes.paper}>
-          <h1 className={classes.login}>{profile.login}</h1>
+          <h1 className={classes.username}>{profile.username}</h1>
           <div className={classes.email}>{profile.email}</div>
           <div className={classes.detailsBlock}>
             <div className={classes.detail}>

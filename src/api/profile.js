@@ -4,17 +4,18 @@ import messages from '../components/AutoDismissAlert/messages'
 import store from '../store'
 import * as ProfileActions from '../actions/profileActions'
 import { addMessage } from '../actions/messageActions'
+// import { LOAD_PROFILE, LOADING_POSTS } from '../constants'
 
 export const getUserProfile = (userId) => {
-  store.dispatch(ProfileActions.loadingPosts())
+  store.dispatch(ProfileActions.loadingProfile())
   axios({
     method: 'GET',
     url: apiUrl + `/users/${userId}`
   })
-    .then(res => store.dispatch(ProfileActions.getUser(res.data.user)))
+    .then(res => store.dispatch(ProfileActions.getUserProfile(res.data.user)))
     .catch(() => store.dispatch(addMessage({
       heading: 'Failed to get user',
-      message: messages.userFailure, // CHange this message
+      message: messages.userFailure,
       variant: 'danger'
     })))
 }
@@ -24,94 +25,73 @@ export const refreshUserProfile = (userId) => {
     method: 'GET',
     url: apiUrl + `/users/${userId}`
   })
-    .then(res => store.dispatch(ProfileActions.getUser(res.data.user)))
+    .then(res => store.dispatch(ProfileActions.getUserProfile(res.data.user)))
     .catch(() => store.dispatch(addMessage({
       heading: 'Failed to refresh user profile',
-      message: messages.userFailure, // CHange this message
+      message: messages.userFailure,
       variant: 'danger'
     })))
 }
 
-export const getPostsByUserId = (userId) => dispatch => {
-  dispatch(loadPosts())
+export const getPostsByUserId = (userId) => {
+  store.dispatch(ProfileActions.loadingPosts())
   axios({
     method: 'GET',
-    url: apiUrl + `posts/${userId}`,
-    headers: {
-      'Authorization': `Bearer ${this.props.user.token}`
-    }
+    url: apiUrl + `posts/${userId}`
   })
-    .then(res => dispatch({
-      type: GET_POSTS,
-      payload: res.data
-    }))
-    .catch(() => this.props.msgAlert({
+    .then(res => store.dispatch(ProfileActions.getUserProfile(res.data.user)))
+    .catch(() => store.dispatch(addMessage({
       heading: 'Failed to get post by user id',
-      message: messages.userFailure, // CHange this message
+      message: messages.userFailure,
       variant: 'danger'
-    }))
+    })))
 }
 
-export const followUser = (userId) => dispatch => {
+export const followUser = (userId) => {
   axios({
     method: 'POST',
-    url: apiUrl + 'users/follow' + userId,
-    headers: {
-      'Authorization': `Bearer ${this.props.user.token}`
-    }
+    url: apiUrl + 'users/follow' + userId
   })
-    .then(res => dispatch({
-      type: FOLLOW,
-      payload: res.data.userId
-    }))
-    .catch(() => this.props.msgAlert({
+    .then(res => store.dispatch(ProfileActions.followUser(userId))) // userId or res.data.user?
+    .catch(() => store.dispatch(addMessage({
       heading: 'Failed to follow user',
-      message: messages.userFailure, // CHange this message
+      message: messages.userFailure,
       variant: 'danger'
-    }))
+    })))
 }
 
-export const unfollowUser = (userId) => dispatch => {
+export const unfollowUser = (userId) => {
   axios({
     method: 'POST',
-    url: apiUrl + 'users/unfollow' + userId,
-    headers: {
-      'Authorization': `Bearer ${this.props.user.token}`
-    }
+    url: apiUrl + 'users/unfollow' + userId
   })
-    .then(res => dispatch({
-      type: UNFOLLOW,
-      payload: res.data.userId
-    }))
-    .catch(() => this.props.msgAlert({
+    .then(res => store.dispatch(ProfileActions.unfollowUser(userId))) // userId or res.data.user?
+    .catch(() => store.dispatch(addMessage({
       heading: 'Failed to unfollow user',
-      message: messages.userFailure, // CHange this message
+      message: messages.userFailure,
       variant: 'danger'
-    }))
+    })))
 }
 
-export const searchUser = (searchData, history) => dispatch => {
+export const searchUser = (searchData, history) => {
   axios({
     method: 'POST',
-    url: apiUrl + 'users/search' + searchData,
-    headers: {
-      'Authorization': `Bearer ${this.props.user.token}`
-    }
+    url: apiUrl + 'users/search' + searchData
   })
     .then(res => {
-      history.push(`/profile/${res.data.userId}`)
+      store.dispatch(history.push(`/profile/${res.data.userId}`))
     })
-    .catch(next => history.push('/search')) // Handle error
+    .catch(next => store.dispatch(history.push('/search')))
 }
 
-export const loadProfile = () => {
-  return {
-    type: LOAD_PROFILE
-  }
-}
+// export const loadProfile = () => {
+//   return {
+//     type: LOAD_PROFILE
+//   }
+// }
 
-export const loadPosts = () => {
-  return {
-    type: LOADING_POSTS
-  }
-}
+// export const loadingPosts = () => {
+//   return {
+//     type: LOADING_POSTS
+//   }
+// }
