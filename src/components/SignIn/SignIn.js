@@ -2,10 +2,13 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 
 import { signIn } from '../../api/auth'
+import { addMessage } from '../../actions/messageActions'
+import { setCurrentUser } from '../../actions/authActions'
 import messages from '../AutoDismissAlert/messages'
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import { connect } from 'react-redux'
 
 class SignIn extends Component {
   constructor () {
@@ -15,6 +18,8 @@ class SignIn extends Component {
       email: '',
       password: ''
     }
+
+    this.onSignIn = this.onSignIn.bind(this)
   }
 
   handleChange = event => this.setState({
@@ -24,11 +29,11 @@ class SignIn extends Component {
   onSignIn = event => {
     event.preventDefault()
 
-    const { msgAlert, history, setUser } = this.props
+    const { addMessage, history, setCurrentUser } = this.props
 
     signIn(this.state)
-      .then(res => setUser(res.data.user))
-      .then(() => msgAlert({
+      .then(res => setCurrentUser(res.data.user))
+      .then(() => addMessage({
         heading: 'Sign In Success',
         message: messages.signInSuccess,
         variant: 'success'
@@ -36,7 +41,7 @@ class SignIn extends Component {
       .then(() => history.push('/'))
       .catch(error => {
         this.setState({ email: '', password: '' })
-        msgAlert({
+        addMessage({
           heading: 'Sign In Failed with error: ' + error.message,
           message: messages.signInFailure,
           variant: 'danger'
@@ -87,4 +92,9 @@ class SignIn extends Component {
   }
 }
 
-export default withRouter(SignIn)
+const mapDispatchToProps = dispatch => ({
+  addMessage: message => dispatch(addMessage(message)),
+  setCurrentUser: user => dispatch(setCurrentUser(user))
+})
+
+export default connect(null, mapDispatchToProps)(withRouter(SignIn))

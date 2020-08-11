@@ -75,18 +75,10 @@ render () {
         onClose={this.handleClose}
       >
         <MenuItem onClick={this.handleClose}>
-          <Link to="/login">Log-in</Link>
+          <Link to="/sign-in">Sign In</Link>
         </MenuItem>
         <MenuItem onClick={this.handleClose}>
-          <Link to="/sign-up">Sign Up!</Link>
-        </MenuItem>
-        <MenuItem onClick={this.handleClose}>
-          <button onClick={() => this.props.addMessage({
-            heading: 'Hello!',
-            message: 'Foo'
-          })}>
-            Hello, world!
-          </button>
+          <Link to="/sign-up">Sign Up</Link>
         </MenuItem>
       </Menu>
     </div>

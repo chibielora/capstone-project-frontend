@@ -43,9 +43,6 @@ export const addPost = (data, dispatch) => {
   axios({
     method: 'POST',
     url: apiUrl + '/posts',
-    headers: {
-      'Authorization': `Bearer ${this.props.user.token}`
-    },
     data: {
       post: {
         body: data.body,
