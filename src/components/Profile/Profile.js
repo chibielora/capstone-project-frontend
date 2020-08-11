@@ -165,9 +165,10 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps,
   {
-    getPostsByUserId,
     getUserProfile,
+    refreshUserProfile,
+    getPostsByUserId,
     followUser,
-    unfollowUser,
-    refreshUserProfile
+    unfollowUser
+
   })(withStyles(styles)(Profile))
