@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import ListPost from './Posts/ListPost'
-import SignIn from './SignIn/SignIn'
+import ListPost from '../Posts/ListPost'
+import SignIn from '../SignIn/SignIn'
 
 class Home extends Component {
   render () {

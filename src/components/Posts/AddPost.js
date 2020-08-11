@@ -68,7 +68,7 @@ class AddPost extends Component {
           className={classes.button}
           onClick={this.handleSubmit}
         >
-					Send
+          Send
         </Button>
       </Paper>
     )

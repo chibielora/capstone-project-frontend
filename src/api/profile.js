@@ -6,7 +6,7 @@ import {
   LOADING_POSTS,
   FOLLOW,
   UNFOLLOW
-} from './../index'
+} from '../constants'
 import apiUrl from '../apiConfig'
 import messages from '../components/AutoDismissAlert/messages'
 

@@ -7,7 +7,7 @@ import {
   DELETE_POSTS,
   EDIT_POSTS,
   LOADING_POSTS
-} from './../index'
+} from '../constants'
 
 export const deletePost = (event, dispatch) => {
   event.persist()

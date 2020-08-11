@@ -10,8 +10,8 @@ import MoreVert from '@material-ui/icons/MoreVert'
 import { Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
+import { addMessage } from '../../actions/messageActions'
 
-import { signOutUser } from '../SignOut/SignOut'
 import Search from '../Search/Search'
 
 const styles = {
@@ -80,6 +80,14 @@ render () {
         <MenuItem onClick={this.handleClose}>
           <Link to="/sign-up">Sign Up!</Link>
         </MenuItem>
+        <MenuItem onClick={this.handleClose}>
+          <button onClick={() => this.props.addMessage({
+            heading: 'Hello!',
+            message: 'Foo'
+          })}>
+            Hello, world!
+          </button>
+        </MenuItem>
       </Menu>
     </div>
   )
@@ -136,4 +144,4 @@ const mapStateToProps = (state) => ({
   user: state.auth.user
 })
 
-export default connect(mapStateToProps, { signOutUser })(withStyles(styles)(Header))
+export default connect(mapStateToProps, { addMessage })(withStyles(styles)(Header))
