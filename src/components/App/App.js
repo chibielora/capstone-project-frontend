@@ -15,21 +15,7 @@ import Search from '../Search/NotFound'
 import NotFound from '../NotFound/NotFound'
 
 class App extends Component {
-  constructor () {
-    super()
-
-    this.state = {
-      user: null
-    }
-  }
-
-  setUser = user => this.setState({ user })
-
-  clearUser = () => this.setState({ user: null })
-
   render () {
-    const { user } = this.state
-
     return (
       <Provider store={store}>
         <div>
@@ -39,16 +25,16 @@ class App extends Component {
                 <Switch>
                   {/* <Header user={user} /> */}
                   <Route path='/sign-up' render={() => (
-                    <SignUp setUser={this.setUser} />
+                    <SignUp />
                   )} />
                   <Route path='/sign-in' render={() => (
-                    <SignIn setUser={this.setUser} />
+                    <SignIn />
                   )} />
-                  <AuthenticatedRoute user={user} path='/sign-out' render={() => (
-                    <SignOut clearUser={this.clearUser} user={user} />
+                  <AuthenticatedRoute path='/sign-out' render={() => (
+                    <SignOut />
                   )} />
-                  <AuthenticatedRoute user={user} path='/change-password' render={() => (
-                    <ChangePassword user={user} />
+                  <AuthenticatedRoute path='/change-password' render={() => (
+                    <ChangePassword />
                   )} />
                   <Route exact path="/" component={Home} />
                   <Route path="/profile/:userId" component={Profile} />

@@ -1,18 +1,12 @@
 import apiUrl from '../apiConfig'
 import axios from 'axios'
+import setAuthHeader from '../utils/setAuthHeader'
 
 export const signUp = credentials => {
   return axios({
     method: 'POST',
     url: apiUrl + '/sign-up',
-    data: {
-      credentials: {
-        username: credentials.username,
-        email: credentials.email,
-        password: credentials.password,
-        password_confirmation: credentials.passwordConfirmation
-      }
-    }
+    data: { credentials }
   })
 }
 
@@ -20,38 +14,29 @@ export const signIn = credentials => {
   return axios({
     url: apiUrl + '/sign-in',
     method: 'POST',
-    data: {
-      credentials: {
-        username: credentials.username,
-        email: credentials.email,
-        password: credentials.password
-      }
-    }
+    data: { credentials }
   })
+    .then(res => {
+      setAuthHeader(res.data.user.token)
+      return res
+    })
 }
 
-export const signOut = user => {
+export const signOut = () => {
   return axios({
     url: apiUrl + '/sign-out',
-    method: 'DELETE',
-    headers: {
-      'Authorization': `Token token=${user.token}`
-    }
+    method: 'DELETE'
   })
+    .then(res => {
+      setAuthHeader(null)
+      return res
+    })
 }
 
-export const changePassword = (passwords, user) => {
+export const changePassword = passwords => {
   return axios({
     url: apiUrl + '/change-password',
     method: 'PATCH',
-    headers: {
-      'Authorization': `Token token=${user.token}`
-    },
-    data: {
-      passwords: {
-        old: passwords.oldPassword,
-        new: passwords.newPassword
-      }
-    }
+    data: { passwords }
   })
 }

@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
 
-import { signUp, signIn } from '../../api/auth'
+import { signUp } from '../../api/auth'
+import { addMessage } from '../../actions/messageActions'
 import messages from '../AutoDismissAlert/messages'
 
 import Form from 'react-bootstrap/Form'
@@ -25,12 +27,12 @@ class SignUp extends Component {
   onSignUp = event => {
     event.preventDefault()
 
-    const { msgAlert, history, setUser } = this.props
+    const { addMessage, history } = this.props
 
     signUp(this.state)
-      .then(() => signIn(this.state))
-      .then(res => setUser(res.data.user))
-      .then(() => msgAlert({
+      // .then(() => signIn(this.state))
+      // .then(res => setUser(res.data.user))
+      .then(() => addMessage({
         heading: 'Sign Up Success',
         message: messages.signUpSuccess,
         variant: 'success'
@@ -38,7 +40,7 @@ class SignUp extends Component {
       .then(() => history.push('/'))
       .catch(error => {
         this.setState({ email: '', password: '', passwordConfirmation: '' })
-        msgAlert({
+        addMessage({
           heading: 'Sign Up Failed with error: ' + error.message,
           message: messages.signUpFailure,
           variant: 'danger'
@@ -100,4 +102,8 @@ class SignUp extends Component {
   }
 }
 
-export default withRouter(SignUp)
+const mapDispatchToProps = dispatch => ({
+  addMessage: message => dispatch(addMessage(message))
+})
+
+export default connect(null, mapDispatchToProps)(withRouter(SignUp))
