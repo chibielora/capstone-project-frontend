@@ -14,6 +14,7 @@ import { connect } from 'react-redux'
 import { addMessage } from '../../actions/messageActions'
 
 import Search from '../Search/Search'
+import Logo from './titter.png'
 
 const styles = {
   root: {
@@ -129,7 +130,7 @@ render () {
           >
             <Grid item xs={4}>
               <Link to="/">
-                <img className={classes.logo} src="/titter.png"></img>
+                <img className={classes.logo} src={Logo}></img>
               </Link>
             </Grid>
             <Grid item xs={4}>
