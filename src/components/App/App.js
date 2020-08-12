@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Route, BrowserRouter, Switch } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import Main from '../Layout/Main'
 import AuthenticatedRoute from '../AuthenticatedRoute/AuthenticatedRoute'
@@ -19,31 +19,29 @@ class App extends Component {
     return (
       <Provider store={store}>
         <div>
-          <BrowserRouter>
-            <Main>
-              <main className="container">
-                <Switch>
-                  {/* <Header user={user} /> */}
-                  <Route path='/sign-up' render={() => (
-                    <SignUp />
-                  )} />
-                  <Route path='/sign-in' render={() => (
-                    <SignIn />
-                  )} />
-                  <AuthenticatedRoute path='/sign-out' render={() => (
-                    <SignOut />
-                  )} />
-                  <AuthenticatedRoute path='/change-password' render={() => (
-                    <ChangePassword />
-                  )} />
-                  <Route exact path="/" component={Home} />
-                  <Route path="/profile/:userId" component={Profile} />
-                  <Route path="/search" component={Search} />
-                  <Route component={NotFound}/>
-                </Switch>
-              </main>
-            </Main>
-          </BrowserRouter>
+          <Main>
+            <main className="container">
+              <Switch>
+                {/* <Header user={user} /> */}
+                <Route path='/sign-up' render={() => (
+                  <SignUp />
+                )} />
+                <Route path='/sign-in' render={() => (
+                  <SignIn />
+                )} />
+                <AuthenticatedRoute path='/sign-out' render={() => (
+                  <SignOut />
+                )} />
+                <AuthenticatedRoute path='/change-password' render={() => (
+                  <ChangePassword />
+                )} />
+                <Route exact path="/" component={Home} />
+                <Route path="/profile/:userId" component={Profile} />
+                <Route path="/search" component={Search} />
+                <Route component={NotFound}/>
+              </Switch>
+            </main>
+          </Main>
         </div>
       </Provider>
     )
