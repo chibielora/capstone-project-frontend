@@ -36,7 +36,7 @@ class App extends Component {
                   <AuthenticatedRoute path='/change-password' render={() => (
                     <ChangePassword />
                   )} />
-                  <Route exact path="/" component={Home} />
+                  <Route exact path="/home" component={Home} />
                   <Route path="/profile/:userId" component={Profile} />
                   <Route path="/search" component={Search} />
                   <Route component={NotFound}/>
