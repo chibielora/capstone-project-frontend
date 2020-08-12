@@ -49,7 +49,10 @@ class PostForm extends Component {
         <Button
           variant="outlined"
           className={classes.button}
-          onClick={() => this.props.handleSubmit(this.state.body)}
+          onClick={() => {
+            this.setState({ body: '' })
+            this.props.handleSubmit(this.state.body)
+          }}
         >
           Send
         </Button>

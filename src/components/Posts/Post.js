@@ -73,7 +73,7 @@ class Post extends Component {
   handleSubmit (body) {
     updatePost({
       _id: this.props.post._id,
-      body
+      body: body
     })
       .then(() => this.setState({ editDialogOpen: false }))
   }
