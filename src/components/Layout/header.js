@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
+import Grid from '@material-ui/core/Grid'
 import IconButton from '@material-ui/core/IconButton'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
@@ -19,9 +20,7 @@ const styles = {
     flexGrow: 1
   },
   logo: {
-    color: '#fff',
-    fontSize: 30,
-    textTransform: 'uppercase'
+    maxHeight: 64
   },
   space: {
     justifyContent: 'space-between'
@@ -112,18 +111,34 @@ render () {
           <Link to={`/profile/${user._id}`}>Profile</Link>
         </MenuItem>
         <MenuItem >
-          <Link to="/#" onClick={this.handlesignOut}>signOut</Link>
+          <Link to="/#" onClick={this.handlesignOut}>Sign Out</Link>
         </MenuItem>
       </Menu>
     </div>
   )
   return (
     <div className={classes.root}>
-      <AppBar position="static" style={{ backgroundColor: '#4B0082' }}>
+      <AppBar position="static" style={{ backgroundColor: '#1b3b1a' }}>
         <Toolbar className={classes.space}>
-          <Link to="/" className={classes.logo}>Titter</Link>
-          <Search />
-          { isAuthenticated ? authLinks : guestLinks }
+          <Grid
+            container
+            direction="row"
+            justify="space-between"
+            alignItems="center"
+            spacing={1}
+          >
+            <Grid item xs={4}>
+              <Link to="/">
+                <img className={classes.logo} src="/titter.png"></img>
+              </Link>
+            </Grid>
+            <Grid item xs={4}>
+              <Search />
+            </Grid>
+            <Grid container justify="flex-end" item xs={4}>
+              { isAuthenticated ? authLinks : guestLinks }
+            </Grid>
+          </Grid>
         </Toolbar>
       </AppBar>
     </div>

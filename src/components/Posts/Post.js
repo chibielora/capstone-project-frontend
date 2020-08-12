@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
+import IconButton from '@material-ui/core/IconButton'
+import DeleteIcon from '@material-ui/icons/DeleteOutline'
+import EditOutlinedIcon from '@material-ui/icons/EditOutlined'
 import { Link } from 'react-router-dom'
 
 const styles = {
@@ -43,8 +46,12 @@ class Post extends Component {
 
     const actions = (
       <div className={classes.actions}>
-        <button className={classes.actionButton}>Edit</button>
-        <button className={classes.actionButton}>Delete</button>
+        <IconButton aria-label="Edit" size="small">
+          <EditOutlinedIcon />
+        </IconButton>
+        <IconButton aria-label="Delete" size="small">
+          <DeleteIcon />
+        </IconButton>
       </div>
     )
     return (

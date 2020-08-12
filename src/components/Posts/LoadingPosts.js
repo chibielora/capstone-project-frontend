@@ -9,7 +9,7 @@ const styles = {
     width: '100%'
   },
   loadIcon: {
-    color: '#8A2BE2'
+    color: '#5b875b'
   }
 }
 const LoadingPosts = ({ classes }) => (

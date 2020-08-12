@@ -16,10 +16,10 @@ const styles = {
     width: '100%',
     marginTop: 20,
     marginBottom: 10,
-    backgroundColor: '#800080',
+    backgroundColor: '#5b875b',
     color: '#fff',
     '&:hover': {
-      color: '#800080'
+      color: '#8db58d'
     }
   }
 }
