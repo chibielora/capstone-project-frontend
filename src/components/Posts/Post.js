@@ -6,7 +6,13 @@ import IconButton from '@material-ui/core/IconButton'
 import DeleteIcon from '@material-ui/icons/DeleteOutline'
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined'
 import { Link } from 'react-router-dom'
-
+import { updatePost, deletePost } from '../../api/post'
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle
+} from '@material-ui/core'
+import PostForm from './PostForm'
 const styles = {
   body: {
     width: '100%'
@@ -37,21 +43,65 @@ const styles = {
     marginLeft: 5,
     background: 'none',
     color: '#08f'
+  },
+  dialog: {
+    minWidth: 600
   }
 }
 
 class Post extends Component {
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      editDialogOpen: false
+    }
+
+    this.handleOpen = this.handleOpen.bind(this)
+    this.handleClose = this.handleClose.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  handleOpen () {
+    this.setState({ editDialogOpen: true })
+  }
+
+  handleClose () {
+    this.setState({ editDialogOpen: false })
+  }
+
+  handleSubmit (body) {
+    updatePost({
+      _id: this.props.post._id,
+      body
+    })
+      .then(() => this.setState({ editDialogOpen: false }))
+  }
+
   render () {
     const { auth, classes, post } = this.props
 
     const actions = (
       <div className={classes.actions}>
-        <IconButton aria-label="Edit" size="small">
+        <IconButton aria-label="Edit" size="small" onClick={this.handleOpen}>
           <EditOutlinedIcon />
         </IconButton>
-        <IconButton aria-label="Delete" size="small">
+        <IconButton aria-label="Delete" size="small" onClick={() => deletePost(post._id)}>
           <DeleteIcon />
         </IconButton>
+        <Dialog
+          open={this.state.editDialogOpen}
+          onClose={this.handleClose}
+        >
+          <DialogTitle>Edit Post</DialogTitle>
+          <DialogContent className={classes.dialog}>
+            <PostForm
+              label="What has brought you to confession today?"
+              body={this.props.post.body}
+              handleSubmit={this.handleSubmit}
+            />
+          </DialogContent>
+        </Dialog>
       </div>
     )
     return (
