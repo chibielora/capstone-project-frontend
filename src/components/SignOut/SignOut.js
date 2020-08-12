@@ -1,21 +1,24 @@
 import { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-
+import { connect } from 'react-redux'
 import { signOut } from '../../api/auth'
 import messages from '../AutoDismissAlert/messages'
+import { setCurrentUser } from '../../actions/authActions'
+import { addMessage } from '../../actions/messageActions'
 
 class SignOut extends Component {
   componentDidMount () {
-    const { msgAlert, history, clearUser, user } = this.props
+    console.log('Mounting SignOut')
+    const { addMessage, history } = this.props
 
-    signOut(user)
-      .finally(() => msgAlert({
+    signOut()
+      .finally(() => this.props.setCurrentUser({}))
+      .finally(() => addMessage({
         heading: 'Signed Out Successfully',
-        messagE: messages.signOutSuccess,
+        message: messages.signOutSuccess,
         variant: 'success'
       }))
       .finally(() => history.push('/'))
-      .finally(() => clearUser())
   }
 
   render () {
@@ -23,4 +26,9 @@ class SignOut extends Component {
   }
 }
 
-export default withRouter(SignOut)
+const mapDispatchToProps = dispatch => ({
+  addMessage: message => dispatch(addMessage(message)),
+  setCurrentUser: user => dispatch(setCurrentUser(user))
+})
+
+export default connect(null, mapDispatchToProps)(withRouter(SignOut))

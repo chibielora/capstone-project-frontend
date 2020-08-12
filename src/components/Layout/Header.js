@@ -111,8 +111,8 @@ render () {
         <MenuItem onClick={this.handleClose}>
           <Link to={`/profile/${user._id}`}>Profile</Link>
         </MenuItem>
-        <MenuItem >
-          <Link to="/#" onClick={this.handlesignOut}>Sign Out</Link>
+        <MenuItem onClick={this.handleClose}>
+          <Link to="/sign-out">Sign Out</Link>
         </MenuItem>
       </Menu>
     </div>
