@@ -6,7 +6,7 @@ import App from './components/App/App'
 import { HashRouter } from 'react-router-dom'
 
 const appJsx = (
-  <HashRouter>
+  <HashRouter basename="/">
     <App />
   </HashRouter>
 )
