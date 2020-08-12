@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-
-import { signUp } from '../../api/auth'
+import { signIn, signUp } from '../../api/auth'
 import { addMessage } from '../../actions/messageActions'
 import messages from '../AutoDismissAlert/messages'
-
+// import { setCurrentUser } from '../../actions/authActions'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
@@ -18,6 +17,7 @@ class SignUp extends Component {
       password: '',
       passwordConfirmation: ''
     }
+    // this.onSignUp = this.onSignUp.bind(this)
   }
 
   handleChange = event => this.setState({
@@ -27,11 +27,13 @@ class SignUp extends Component {
   onSignUp = event => {
     event.preventDefault()
 
-    const { addMessage, history } = this.props
+    const { addMessage, history
+      // , setCurrentUser
+    } = this.props
 
     signUp(this.state)
-      // .then(() => signIn(this.state))
-      // .then(res => setUser(res.data.user))
+      .then(() => signIn(this.state))
+      // .then(res => setCurrentUser(res.state.user))
       .then(() => addMessage({
         heading: 'Sign Up Success',
         message: messages.signUpSuccess,
@@ -104,6 +106,7 @@ class SignUp extends Component {
 
 const mapDispatchToProps = dispatch => ({
   addMessage: message => dispatch(addMessage(message))
+  // setCurrentUser: user => dispatch(setCurrentUser(user))
 })
 
 export default connect(null, mapDispatchToProps)(withRouter(SignUp))
