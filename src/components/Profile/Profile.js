@@ -62,24 +62,24 @@ class Profile extends Component {
   }
 
   componentDidMount () {
-    getPostsByUserId(this.props.match.params.userId)
-    getUserProfile(this.props.match.params.userId)
+    getPostsByUserId(this.props.userId)
+    getUserProfile(this.props.userId)
   }
 
   componentDidUpdate (prevProps) {
     if (this.props.auth.isAuthenticated) {
       if (prevProps.user && prevProps.user.following !== this.props.user.following) {
-        refreshUserProfile(this.props.match.params.userId)
+        refreshUserProfile(this.props.userId)
       }
     }
   }
 
   handleFollow () {
-    followUser(this.props.match.params.userId)
+    followUser(this.props.userId)
   }
 
   handleUnfollow () {
-    unfollowUser(this.props.match.params.userId)
+    unfollowUser(this.props.userId)
   }
 
   render () {
@@ -93,11 +93,11 @@ class Profile extends Component {
       profile
     } = this.props
     let followBtns
-    if (auth.isAuthenticated) {
+    if (auth.isAuthenticated && user._id !== profile._id) {
       if (
         user &&
         user.following &&
-        user.following.indexOf(this.props.match.params.userId) === -1
+        user.following.indexOf(this.props.userId) === -1
       ) {
         followBtns = (<div className={classes.btnBlock}>
           <Button

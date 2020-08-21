@@ -16,13 +16,13 @@ import NotFound from '../NotFound/NotFound'
 
 class App extends Component {
   render () {
+    console.log(typeof Profile)
     return (
       <Provider store={store}>
         <div>
           <Main>
             <main className="container">
               <Switch>
-                {/* <Header user={user} /> */}
                 <Route path='/sign-up' render={() => (
                   <SignUp />
                 )} />
@@ -35,10 +35,19 @@ class App extends Component {
                 <AuthenticatedRoute path='/change-password' render={() => (
                   <ChangePassword />
                 )} />
-                <Route exact path="/" component={Home} />
-                <Route path="/profile/:userId" component={Profile} />
-                <Route path="/search" component={Search} />
-                <Route component={NotFound}/>
+                <Route exact path="/" render={() => (
+                  <Home />
+                )} />
+                <Route path="/profile/:userId" render={(props) => {
+                  console.log(props)
+                  return <Profile userId={props.match.params.userId}/>
+                }} />
+                <Route path="/search" render={() => (
+                  <Search />
+                )} />
+                <Route render={() => (
+                  <NotFound />
+                )} />
               </Switch>
             </main>
           </Main>
