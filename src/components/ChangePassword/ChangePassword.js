@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 
 import { changePassword } from '../../api/auth'
+import { addMessage } from '../../actions/messageActions'
 import messages from '../AutoDismissAlert/messages'
 
 import Form from 'react-bootstrap/Form'
@@ -24,18 +26,19 @@ class ChangePassword extends Component {
   onChangePassword = event => {
     event.preventDefault()
 
-    const { msgAlert, history, user } = this.props
+    const { addMessage, history } = this.props
 
-    changePassword(this.state, user)
-      .then(() => msgAlert({
+    changePassword(this.state)
+      .then(() => addMessage({
         heading: 'Change Password Success',
         message: messages.changePasswordSuccess,
         variant: 'success'
       }))
       .then(() => history.push('/'))
       .catch(error => {
+        console.error(error)
         this.setState({ oldPassword: '', newPassword: '' })
-        msgAlert({
+        addMessage({
           heading: 'Change Password Failed with error: ' + error.message,
           message: messages.changePasswordFailure,
           variant: 'danger'
@@ -86,4 +89,7 @@ class ChangePassword extends Component {
   }
 }
 
-export default withRouter(ChangePassword)
+const mapDispatchToProps = dispatch => ({
+  addMessage: message => dispatch(addMessage(message))
+})
+export default connect(null, mapDispatchToProps)(withRouter(ChangePassword))

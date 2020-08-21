@@ -112,6 +112,9 @@ render () {
           <Link to={`/profile/${user._id}`}>Profile</Link>
         </MenuItem>
         <MenuItem onClick={this.handleClose}>
+          <Link to="/change-password">Change Password</Link>
+        </MenuItem>
+        <MenuItem onClick={this.handleClose}>
           <Link to="/sign-out">Sign Out</Link>
         </MenuItem>
       </Menu>

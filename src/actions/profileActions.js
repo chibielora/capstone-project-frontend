@@ -1,5 +1,6 @@
 import {
   GET_PROFILE,
+  CHANGE_PASSWORD,
   LOAD_PROFILE,
   GET_POSTS,
   LOADING_POSTS,
@@ -9,6 +10,11 @@ import {
 
 export const getUserProfile = (user) => ({
   type: GET_PROFILE,
+  payload: user
+})
+
+export const changePasswordUserProfile = (user) => ({
+  type: CHANGE_PASSWORD,
   payload: user
 })
 
