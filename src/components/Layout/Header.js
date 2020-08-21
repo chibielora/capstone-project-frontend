@@ -13,7 +13,7 @@ import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
 import { addMessage } from '../../actions/messageActions'
 
-import Search from '../Search/Search'
+import SearchForm from '../Search/SearchForm'
 import Logo from './titter.png'
 
 const styles = {
@@ -137,7 +137,7 @@ render () {
               </Link>
             </Grid>
             <Grid item xs={4}>
-              <Search />
+              <SearchForm />
             </Grid>
             <Grid container justify="flex-end" item xs={4}>
               { isAuthenticated ? authLinks : guestLinks }

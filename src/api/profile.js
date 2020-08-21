@@ -8,13 +8,15 @@ import { getPosts } from '../actions/postActions'
 // import { LOAD_PROFILE, LOADING_POSTS } from '../constants'
 
 export const getUserProfile = (userId) => {
-  console.log('getUserProfile')
+  // console.log('getUserProfile')
   store.dispatch(ProfileActions.loadingProfile())
   axios({
     method: 'GET',
     url: apiUrl + `/users/${userId}`
   })
-    .then(res => store.dispatch(ProfileActions.getUserProfile(res.data.user)))
+    .then(res => {
+      store.dispatch(ProfileActions.getUserProfile(res.data.user))
+    })
     .catch(() => store.dispatch(addMessage({
       heading: 'Failed to get user',
       message: messages.userFailure,
@@ -27,7 +29,9 @@ export const refreshUserProfile = (userId) => {
     method: 'GET',
     url: apiUrl + `/users/${userId}`
   })
-    .then(res => store.dispatch(ProfileActions.getUserProfile(res.data.user)))
+    .then(res => {
+      store.dispatch(ProfileActions.getUserProfile(res.data.user))
+    })
     .catch(() => store.dispatch(addMessage({
       heading: 'Failed to refresh user profile',
       message: messages.userFailure,
@@ -42,7 +46,7 @@ export const getPostsByUserId = (userId) => {
     url: apiUrl + `/users/${userId}/posts`
   })
     .then(res => {
-      console.log(res.data)
+      // console.log(res.data)
       store.dispatch(getPosts(res.data.posts))
     })
     .catch(() => store.dispatch(addMessage({
@@ -57,7 +61,10 @@ export const followUser = (userId) => {
     method: 'POST',
     url: apiUrl + '/users/follow' + userId
   })
-    .then(res => store.dispatch(ProfileActions.followUser(userId))) // userId or res.data.user?
+    .then(res => {
+      // console.log(res.data.user)
+      store.dispatch(ProfileActions.followUser(userId))
+    }) // userId or res.data.user?
     .catch(() => store.dispatch(addMessage({
       heading: 'Failed to follow user',
       message: messages.userFailure,
@@ -70,7 +77,9 @@ export const unfollowUser = (userId) => {
     method: 'POST',
     url: apiUrl + 'users/unfollow' + userId
   })
-    .then(res => store.dispatch(ProfileActions.unfollowUser(userId))) // userId or res.data.user?
+    .then(res => {
+      store.dispatch(ProfileActions.unfollowUser(userId))
+    }) // userId or res.data.user?
     .catch(() => store.dispatch(addMessage({
       heading: 'Failed to unfollow user',
       message: messages.userFailure,

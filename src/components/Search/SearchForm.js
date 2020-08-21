@@ -75,7 +75,7 @@ class Search extends Component {
           <SearchIcon />
         </div>
         <InputBase
-          placeholder="Search user"
+          placeholder="Search User"
           classes={{
             root: classes.inputRoot,
             input: classes.inputInput
