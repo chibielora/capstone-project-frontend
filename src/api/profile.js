@@ -75,7 +75,7 @@ export const followUser = (userId) => {
 export const unfollowUser = (userId) => {
   axios({
     method: 'POST',
-    url: apiUrl + 'users/unfollow' + userId
+    url: apiUrl + '/users/unfollow' + userId
   })
     .then(res => {
       store.dispatch(ProfileActions.unfollowUser(userId))
@@ -90,12 +90,16 @@ export const unfollowUser = (userId) => {
 export const searchUser = (searchData, history) => {
   axios({
     method: 'POST',
-    url: apiUrl + 'users/search' + searchData
+    url: apiUrl + '/users/search',
+    data: searchData
   })
     .then(res => {
-      store.dispatch(history.push(`/profile/${res.data.userId}`))
+      history.push(`/profile/${res.data.userId}`)
     })
-    .catch(next => store.dispatch(history.push('/search')))
+    .catch((error) => {
+      console.error(error)
+      history.push('/search')
+    })
 }
 
 // export const loadProfile = () => {
