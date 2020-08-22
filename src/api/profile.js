@@ -80,10 +80,7 @@ export const unfollowUser = (userId) => {
   })
     .then(res => {
       const currentUserId = store.getState().auth.user._id
-      store.dispatch(ProfileActions.unfollowUser({
-        unfollowingUserId: currentUserId,
-        unfollowedUserId: userId
-      }))
+      store.dispatch(ProfileActions.unfollowUser(currentUserId, userId))
     }) // userId or res.data.user?
     .catch(() => store.dispatch(addMessage({
       heading: 'Failed to unfollow user',

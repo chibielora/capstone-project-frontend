@@ -74,12 +74,16 @@ render () {
         anchorEl={anchorEl}
         onClose={this.handleClose}
       >
-        <MenuItem onClick={this.handleClose}>
-          <Link to="/sign-in">Sign In</Link>
-        </MenuItem>
-        <MenuItem onClick={this.handleClose}>
-          <Link to="/sign-up">Sign Up</Link>
-        </MenuItem>
+        <Link to="/sign-in">
+          <MenuItem onClick={this.handleClose}>
+            Sign In
+          </MenuItem>
+        </Link>
+        <Link to="/sign-up">
+          <MenuItem onClick={this.handleClose}>
+            Sign Up
+          </MenuItem>
+        </Link>
       </Menu>
     </div>
   )
@@ -108,15 +112,21 @@ render () {
         anchorEl={anchorEl}
         onClose={this.handleClose}
       >
-        <MenuItem onClick={this.handleClose}>
-          <Link to={`/profile/${user._id}`}>Profile</Link>
-        </MenuItem>
-        <MenuItem onClick={this.handleClose}>
-          <Link to="/change-password">Change Password</Link>
-        </MenuItem>
-        <MenuItem onClick={this.handleClose}>
-          <Link to="/sign-out">Sign Out</Link>
-        </MenuItem>
+        <Link to={`/profile/${user._id}`}>
+          <MenuItem onClick={this.handleClose}>
+            Profile
+          </MenuItem>
+        </Link>
+        <Link to="/change-password">
+          <MenuItem onClick={this.handleClose}>
+            Change Password
+          </MenuItem>
+        </Link>
+        <Link to="/sign-out">
+          <MenuItem onClick={this.handleClose}>
+            Sign Out
+          </MenuItem>
+        </Link>
       </Menu>
     </div>
   )

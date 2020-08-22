@@ -68,7 +68,7 @@ export const getPosts = () => {
     })))
 }
 
-export const getPostsByFollowingUsers = () => dispatch => {
+export const getPostsByFollowingUsers = () => {
   store.dispatch(PostActions.loadingPosts())
   return axios({
     method: 'GET',
