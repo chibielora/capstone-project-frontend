@@ -1,6 +1,8 @@
 import {
   LOAD_PROFILE,
-  GET_PROFILE
+  GET_PROFILE,
+  FOLLOW,
+  UNFOLLOW
 } from '../constants'
 
 const initialState = {
@@ -21,6 +23,37 @@ export default function (state = initialState, action) {
       ...state,
       loading: false,
       user: action.payload
+    }
+  case FOLLOW:
+    console.log({
+      ...state,
+      user: {
+        ...state.user,
+        followers: [
+          ...state.user.followers,
+          action.payload.followingUserId
+        ]
+      }
+    })
+    return {
+      ...state,
+      user: {
+        ...state.user,
+        followers: [
+          ...state.user.followers,
+          action.payload.followingUserId
+        ]
+      }
+    }
+  case UNFOLLOW:
+    return {
+      ...state,
+      user: {
+        ...state.user,
+        followers: state.user.followers.filter(userId => {
+          return userId !== action.payload.unfollowingUserId
+        })
+      }
     }
   default:
     return state

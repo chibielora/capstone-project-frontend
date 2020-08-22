@@ -93,7 +93,9 @@ class Profile extends Component {
       profile
     } = this.props
     let followBtns
-    if (auth.isAuthenticated && user._id !== profile._id) {
+    if (auth.isAuthenticated &&
+      !loadingProfile &&
+      user._id !== profile._id) {
       if (
         user &&
         user.following &&

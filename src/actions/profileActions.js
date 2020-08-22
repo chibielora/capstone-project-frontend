@@ -2,7 +2,6 @@ import {
   GET_PROFILE,
   CHANGE_PASSWORD,
   LOAD_PROFILE,
-  GET_POSTS,
   LOADING_POSTS,
   FOLLOW,
   UNFOLLOW
@@ -32,26 +31,22 @@ export const searchUser = (data) => ({
   payload: data
 })
 
-export const getPosts = posts => ({
-  type: GET_POSTS,
-  payload: posts
-})
-
-export const getPostsByUserId = (userId) => ({
-  type: GET_POSTS,
-  payload: userId
-})
-
 export const loadingPosts = () => ({
   type: LOADING_POSTS
 })
 
-export const followUser = (userId) => ({
+export const followUser = (followingUserId, followedUserId) => ({
   type: FOLLOW,
-  payload: userId
+  payload: {
+    followingUserId,
+    followedUserId
+  }
 })
 
-export const unfollowUser = (userId) => ({
+export const unfollowUser = (unfollowingUserId, unfollowedUserId) => ({
   type: UNFOLLOW,
-  payload: userId
+  payload: {
+    unfollowingUserId,
+    unfollowedUserId
+  }
 })

@@ -59,11 +59,12 @@ export const getPostsByUserId = (userId) => {
 export const followUser = (userId) => {
   axios({
     method: 'POST',
-    url: apiUrl + '/users/follow' + userId
+    url: apiUrl + `/users/${userId}/follow/`
   })
     .then(res => {
       // console.log(res.data.user)
-      store.dispatch(ProfileActions.followUser(userId))
+      const currentUserId = store.getState().auth.user._id
+      store.dispatch(ProfileActions.followUser(currentUserId, userId))
     }) // userId or res.data.user?
     .catch(() => store.dispatch(addMessage({
       heading: 'Failed to follow user',
@@ -75,10 +76,14 @@ export const followUser = (userId) => {
 export const unfollowUser = (userId) => {
   axios({
     method: 'POST',
-    url: apiUrl + '/users/unfollow' + userId
+    url: apiUrl + `/users/${userId}/unfollow/`
   })
     .then(res => {
-      store.dispatch(ProfileActions.unfollowUser(userId))
+      const currentUserId = store.getState().auth.user._id
+      store.dispatch(ProfileActions.unfollowUser({
+        unfollowingUserId: currentUserId,
+        unfollowedUserId: userId
+      }))
     }) // userId or res.data.user?
     .catch(() => store.dispatch(addMessage({
       heading: 'Failed to unfollow user',
