@@ -7,7 +7,8 @@ import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import MoreVert from '@material-ui/icons/MoreVert'
-
+import Nav from 'react-bootstrap/Nav'
+import Navbar from 'react-bootstrap/Navbar'
 import { Link } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
@@ -90,6 +91,16 @@ render () {
 
   const authLinks = isAuthenticated && (
     <div>
+
+      <Navbar>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav>
+            { user && <span className="text-light text-left">Welcome, {user.email}</span>}
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+
       <IconButton
         aria-owns={ open ? 'menu-appbar' : undefined }
         aria-haspopup="true"
