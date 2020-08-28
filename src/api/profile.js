@@ -98,8 +98,12 @@ export const searchUser = (searchData, history) => {
     .then(res => {
       history.push(`/profile/${res.data.userId}`)
     })
-    .catch((error) => {
-      console.error(error)
+    .catch(() => {
+      store.dispatch(addMessage({
+        heading: 'Failed to search',
+        message: messages.userFailure,
+        variant: 'danger'
+      }))
       history.push('/search')
     })
 }

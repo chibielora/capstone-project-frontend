@@ -16,7 +16,7 @@ import NotFound from '../NotFound/NotFound'
 
 class App extends Component {
   render () {
-    console.log(typeof Profile)
+    // console.log(typeof Profile)
     return (
       <Provider store={store}>
         <div>
@@ -39,7 +39,7 @@ class App extends Component {
                   <Home />
                 )} />
                 <Route path="/profile/:userId" render={(props) => {
-                  console.log(props)
+                  // console.log(props)
                   return <Profile userId={props.match.params.userId}/>
                 }} />
                 <Route path="/search" render={() => (

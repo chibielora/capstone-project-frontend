@@ -8,7 +8,7 @@ import { addMessage } from '../../actions/messageActions'
 
 class SignOut extends Component {
   componentDidMount () {
-    console.log('Mounting SignOut')
+    // console.log('Mounting SignOut')
     const { addMessage, history } = this.props
 
     signOut()

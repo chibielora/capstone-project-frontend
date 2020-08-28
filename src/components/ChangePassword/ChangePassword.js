@@ -36,7 +36,7 @@ class ChangePassword extends Component {
       }))
       .then(() => history.push('/'))
       .catch(error => {
-        console.error(error)
+        // console.error(error)
         this.setState({ oldPassword: '', newPassword: '' })
         addMessage({
           heading: 'Change Password Failed with error: ' + error.message,

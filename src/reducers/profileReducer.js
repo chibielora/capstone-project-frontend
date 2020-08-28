@@ -11,7 +11,7 @@ const initialState = {
 }
 
 export default function (state = initialState, action) {
-  console.log(action)
+  // console.log(action)
   switch (action.type) {
   case LOAD_PROFILE:
     return {
@@ -25,16 +25,16 @@ export default function (state = initialState, action) {
       user: action.payload
     }
   case FOLLOW:
-    console.log({
-      ...state,
-      user: {
-        ...state.user,
-        followers: [
-          ...state.user.followers,
-          action.payload.followingUserId
-        ]
-      }
-    })
+    // console.log({
+    //   ...state,
+    //   user: {
+    //     ...state.user,
+    //     followers: [
+    //       ...state.user.followers,
+    //       action.payload.followingUserId
+    //     ]
+    //   }
+    // })
     return {
       ...state,
       user: {
